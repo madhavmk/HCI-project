@@ -3,6 +3,7 @@ from flask import render_template, Flask, request, Response, jsonify
 import numpy as np
 from copy import deepcopy
 from PIL import Image
+from flask_cors import CORS, cross_origin
 
 import cv2
 import base64
@@ -182,12 +183,17 @@ def main(input, output, simType):
 
 # Initialize the app
 app = flask.Flask(__name__)
+# CORS(app)
+# CORS(app, support_credentials=True)
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 @app.route("/")
+@cross_origin(origin="*")
 def home_page():
     return 'home page !'
 
 @app.route("/conversion/<conversion_type>", methods=["POST"])
+@cross_origin(origin="*")
 def process_image(conversion_type):
     if request.method == 'POST':
         
@@ -221,8 +227,10 @@ def process_image(conversion_type):
         img.save(rawBytes, "JPEG")
         rawBytes.seek(0)
         img_base64 = base64.b64encode(rawBytes.read())
-
-        return jsonify({'file':str(img_base64)})
+        return str(img_base64)
+        # return jsonify({'file':str(img_base64)})
+        # return img_base64
+        return jsonify("data:image/png;base64,"+img_base64)
 
 
 #--------- RUN WEB APP SERVER ------------#

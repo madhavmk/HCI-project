@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.button {
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: #FFFFFF;
+  text-align: center;
+  font-size: 28px;
+  padding: 20px;
+  width: 200px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.button span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.button span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.button:hover span {
+  padding-right: 25px;
+}
+
+.button:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.topnav {
+  overflow: hidden;
+  background-color: #333;
+}
+
+.topnav a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+.topnav a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.topnav a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+.btn-group button {
+  background-color: #003456; /* Green background */
+  border: 1px solid green; /* Green border */
+  color: white; /* White text */
+  padding: 10px 24px; /* Some padding */
+  cursor: pointer; /* Pointer/hand icon */
+  float: left; /* Float the buttons side by side */
+}
+
+/* Clear floats (clearfix hack) */
+.btn-group:after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+.btn-group button:not(:last-child) {
+  border-right: none; /* Prevent double borders */
+}
+
+/* Add a background color on hover */
+.btn-group button:hover {
+  background-color: #3e8e41;
+}
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a href="#news">News</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+</div>
+
+<br><br><br><br><br><br>
+<canvas id="canvas" width="250" height="250" style="border:5px solid #003456 "></canvas>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+<canvas id="canvas2" width="250" height="250" style="border:5px solid #003456"></canvas><br><br><br>
+<button class="button" style="vertical-align:middle" onclick="myFunction()"><span>Upload </span></button>
+<div class="btn-group">
+  <button onclick="protanope()">Protanope</button>
+  <button onclick="Deuteranope()">Deuteranope</button>
+  <button onclick="Tritanope()">Tritanope</button>
+</div>
+
+
+
+<script type="text/javascript">
+var img_glo;
+function protanope()
+{
+  console.log(img_glo);
+  const Http = new XMLHttpRequest();
+  const url='http://localhost:8000/conversion/Protanope';
+  Http.open("POST", url);
+  Http.setRequestHeader("Content-Type","image/jpeg")
+  Http.send(img_glo);
+
+Http.onreadystatechange = (e) => {
+  console.log(Http.responseText)
+  console.log(typeof Http.responseText)
+  var temp=Http.responseText;
+  image = temp.split('\'')[1]
+  var img2 = new Image();
+  img2.onload = draw2;
+  img2.crossOrigin = 'Anonymous';
+  img2.onerror = failed;
+  img2.src = 'data:image/jpeg;base64,'+image;
+}
+};
+
+function Deuteranope()
+{
+  console.log(img_glo);
+  const Http = new XMLHttpRequest();
+  const url='http://localhost:8000/conversion/Deuteranope';
+  Http.open("POST", url);
+  Http.setRequestHeader("Content-Type","image/jpeg")
+  Http.send(img_glo);
+
+Http.onreadystatechange = (e) => {
+  console.log(Http.responseText)
+  console.log(typeof Http.responseText)
+  var temp=Http.responseText;
+  image = temp.split('\'')[1]
+  var img2 = new Image();
+  img2.onload = draw2;
+  img2.crossOrigin = 'Anonymous';
+  img2.onerror = failed;
+  img2.src = 'data:image/jpeg;base64,'+image;
+}
+};
+
+function Tritanope()
+{
+  console.log(img_glo);
+  const Http = new XMLHttpRequest();
+  const url='http://localhost:8000/conversion/Tritanope';
+  Http.open("POST", url);
+  Http.setRequestHeader("Content-Type","image/jpeg")
+  Http.send(img_glo);
+
+Http.onreadystatechange = (e) => {
+  console.log(Http.responseText)
+  console.log(typeof Http.responseText)
+  var temp=Http.responseText;
+  image = temp.split('\'')[1]
+  var img2 = new Image();
+  img2.onload = draw2;
+  img2.crossOrigin = 'Anonymous';
+  img2.onerror = failed;
+  img2.src = 'data:image/jpeg;base64,'+image;
+}
+};
+
+function myFunction() {
+  var x = document.createElement("INPUT");
+  x.setAttribute("id", "inp");
+  x.setAttribute("type", "file");
+  document.body.appendChild(x);
+  document.getElementById('inp').onchange = function(e) {
+  var img = new Image();
+  img.onload = draw;
+  img.crossOrigin = 'Anonymous';
+  img.onerror = failed;
+  // img_glo=URL.createObjectURL(this.files[0]);
+  img_glo=this.files[0];
+  console.log(img_glo);
+  img.src = URL.createObjectURL(this.files[0]);
+};
+
+
+
+
+
+}
+function draw() {
+  var canvas = document.getElementById('canvas');
+  canvas.width = this.width;
+  canvas.height = this.height;
+  // canvas.width = 250 ;
+  // canvas.height = 250 ;
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(this, 0,0);
+}
+
+function draw2() {
+  var canvas = document.getElementById('canvas2');
+  canvas.width = this.width;
+  canvas.height = this.height;
+  // canvas.width = 250 ;
+  // canvas.height = 250 ;
+  var ctx = canvas.getContext('2d');
+  ctx.drawImage(this, 0,0);
+}
+
+function failed() {
+  console.error("The provided file couldn't be loaded as an Image media");
+}
+</script>
+
+</body>
+</html>
