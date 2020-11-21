@@ -220,6 +220,7 @@ def process_image(conversion_type):
         ###
 
         img = Image.open('download.jpg')
+        img = img.rotate(-90	)
         
         print('Opened Download image in PIL')
         
